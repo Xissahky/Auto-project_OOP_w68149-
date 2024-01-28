@@ -1,0 +1,7 @@
+C:\Users\zomba\Desktop\samochod\samochod\bin\Debug\samochod.exe.config
+C:\Users\zomba\Desktop\samochod\samochod\bin\Debug\samochod.exe
+C:\Users\zomba\Desktop\samochod\samochod\bin\Debug\samochod.pdb
+C:\Users\zomba\Desktop\samochod\samochod\obj\Debug\samochod.csproj.AssemblyReference.cache
+C:\Users\zomba\Desktop\samochod\samochod\obj\Debug\samochod.csproj.CoreCompileInputs.cache
+C:\Users\zomba\Desktop\samochod\samochod\obj\Debug\samochod.exe
+C:\Users\zomba\Desktop\samochod\samochod\obj\Debug\samochod.pdb
