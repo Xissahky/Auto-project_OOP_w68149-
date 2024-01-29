@@ -1,8 +1,5 @@
-﻿Nissan;Crossover;40;7,
-Ford;Crossover;60;5,
-Chevrolet;Pickup;80;6,
-Honda;Minivan;65;7,
-BMW;SportCar;70;6.5,
-Toyota;SportCar;40;6.5,
-Hyundai;Pickup;0;5.8,
-Mersedes;Minivan;20;0
+﻿Nissan;Crossover;Automatic;40;7
+Ford;Crossover;Automatic;60;5
+Chevrolet;Pickup;Automatic;80;6
+Honda;Minivan;Automatic;65;7
+Mercedes;Minivan;Automatic;20;0

@@ -1,9 +1,5 @@
-Nissan,Crossover,55,14
-Ford,Crossover,79,7
-Chevrolet,SportCar,91,6
-Honda,Pickup,74,8
-BMW,Pickup,17,5
-Toyota,Pickup,77,9
-Hyundai,SportCar,0,12
-Mersedes,Minivan,19,0
-
+Nissan;Crossover;Automatic;40;7
+Ford;Crossover;Automatic;60;5
+Chevrolet;Pickup;Automatic;80;6
+Honda;Minivan;Automatic;65;7
+Mercedes;Minivan;Automatic;20;0
