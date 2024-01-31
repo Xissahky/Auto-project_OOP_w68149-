@@ -46,6 +46,7 @@
     <Compile Include="Auto.cs" />
     <Compile Include="AutoType.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="EngineGeneration.cs" />
     <Compile Include="LightControl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

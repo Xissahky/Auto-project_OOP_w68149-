@@ -1,5 +1,6 @@
-Nissan;Crossover;Automatic;40;7
-Ford;Crossover;Automatic;60;5
-Chevrolet;Pickup;Automatic;80;6
-Honda;Minivan;Automatic;65;7
-Mercedes;Minivan;Automatic;20;0
+Nissan;Crossover;Automatic;40;7;Generation1
+Ford;Crossover;Automatic;60;5;Generation3
+Chevrolet;Pickup;Automatic;80;6;Generation1
+Honda;Minivan;Automatic;65;7;Generation2
+Mercedes;Minivan;Automatic;20;0;Generation3
+ferrari;SportCar;Manual;0;0;Generation3

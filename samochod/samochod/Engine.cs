@@ -33,7 +33,7 @@ namespace samochod
             if (car.EngineRunning)
             {
                 car.EngineRunning = false;
-                car.LightsOn = false; // Turn off lights when the engine stops
+                car.LightsOn = false;
                 Console.WriteLine($"{car.Name} engine stopped.");
             }
             else

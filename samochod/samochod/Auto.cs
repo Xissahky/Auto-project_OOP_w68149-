@@ -16,8 +16,9 @@ namespace samochod
         public int CurrentSpeed { get; set; }
         public bool EngineRunning { get; set; }
         public bool LightsOn { get; set; }
+        public EngineGeneration EngineGeneration { get; set; }
 
-        public Auto(string name, AutoType type, TransmissionType transmission, decimal fuel, decimal techLiquids)
+        public Auto(string name, AutoType type, TransmissionType transmission, decimal fuel, decimal techLiquids, EngineGeneration engineGeneration)
         {
             Name = name;
             Type = type;
@@ -27,6 +28,7 @@ namespace samochod
             CurrentSpeed = 0;
             EngineRunning = false;
             LightsOn = false;
+            EngineGeneration = engineGeneration;
         }
     }
 }

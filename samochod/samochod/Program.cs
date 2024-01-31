@@ -25,35 +25,155 @@ namespace samochod
             Program program = new Program();
             List<Auto> cars = LoadCarsFromFile("auto_info.txt");
 
-            if (cars.Count > 0)
+            Console.WriteLine("Choose an option:");
+            Console.WriteLine("1. Select a car from the list");
+            Console.WriteLine("2. Add your own car");
+
+            int option = int.Parse(Console.ReadLine());
+
+            switch (option)
             {
-                Console.WriteLine("Cars loaded from 'auto_info.txt'.");
-                Console.WriteLine("Choose a car:");
-                foreach (var car in cars)
+                case 1:
+                    if (cars.Count > 0)
+                    {
+                        Console.WriteLine("Cars loaded from 'auto_info.txt'.");
+                        Console.WriteLine("Choose a car:");
+                        foreach (var car in cars)
+                        {
+                            Console.WriteLine($"{car.Name} - {car.Type}");
+                        }
+
+                        Console.Write("Enter the car name to select: ");
+                        string selectedCarName = Console.ReadLine();
+
+                        Auto selectedCar = cars.Find(car => car.Name.Equals(selectedCarName, StringComparison.OrdinalIgnoreCase));
+
+                        if (selectedCar != null)
+                        {
+                            program.TryStartEngine(selectedCar, cars);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Car not found.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No cars found in 'auto_info.txt'. Exiting the program.");
+                    }
+                    break;
+
+                case 2:
+                    Auto userCar = program.AddUserCar();
+                    if (userCar != null)
+                    {
+                        cars.Add(userCar);
+                        program.TryStartEngine(userCar, cars);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid car information. Exiting the program.");
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid option. Exiting the program.");
+                    break;
+            }
+
+            Console.ReadLine();
+        }
+
+        public Auto AddUserCar()
+        {
+            Console.WriteLine("Enter the details for your car:");
+            Console.Write("Name: ");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("Choose car type:");
+            Console.WriteLine("0. SportCar");
+            Console.WriteLine("1. Crossover");
+            Console.WriteLine("2. Pickup");
+            Console.WriteLine("3. Minivan");
+
+            if (int.TryParse(Console.ReadLine(), out int carTypeInput) && Enum.IsDefined(typeof(AutoType), carTypeInput))
+            {
+                AutoType type = (AutoType)carTypeInput;
+
+                Console.WriteLine("Choose transmission type:");
+                Console.WriteLine("0. Manual");
+                Console.WriteLine("1. Automatic");
+
+                if (int.TryParse(Console.ReadLine(), out int transmissionTypeInput) && Enum.IsDefined(typeof(TransmissionType), transmissionTypeInput))
                 {
-                    Console.WriteLine($"{car.Name} - {car.Type}");
-                }
+                    TransmissionType transmission = (TransmissionType)transmissionTypeInput;
 
-                Console.Write("Enter the car name to select: ");
-                string selectedCarName = Console.ReadLine();
+                    Console.Write("Amount of fuel: ");
+                    decimal fuel;
+                    if (decimal.TryParse(Console.ReadLine(), out fuel))
+                    {
+                        Console.Write("Amount of technical liquids: ");
+                        decimal techLiquids;
+                        if (decimal.TryParse(Console.ReadLine(), out techLiquids))
+                        {
+                            Console.WriteLine("Choose engine generation:");
+                            Console.WriteLine("0. Generation1");
+                            Console.WriteLine("1. Generation2");
+                            Console.WriteLine("2. Generation3");
 
-                Auto selectedCar = cars.Find(car => car.Name.Equals(selectedCarName, StringComparison.OrdinalIgnoreCase));
+                            if (int.TryParse(Console.ReadLine(), out int engineGenerationInput) && Enum.IsDefined(typeof(EngineGeneration), engineGenerationInput))
+                            {
+                                EngineGeneration engineGeneration = (EngineGeneration)engineGenerationInput;
 
-                if (selectedCar != null)
-                {
-                    program.TryStartEngine(selectedCar, cars);
+                                Auto newUserCar = new Auto(name, type, transmission, fuel, techLiquids, engineGeneration);
+
+                                
+                                SaveCarToFile(newUserCar, "auto_info.txt");
+
+                                return newUserCar;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Invalid engine generation. Exiting the program.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid technical liquids amount. Exiting the program.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid fuel amount. Exiting the program.");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Car not found.");
+                    Console.WriteLine("Invalid transmission type. Exiting the program.");
                 }
             }
             else
             {
-                Console.WriteLine("No cars found in 'auto_info.txt'. Exiting the program.");
+                Console.WriteLine("Invalid car type. Exiting the program.");
             }
 
-            Console.ReadLine();
+            return null;
+        }
+
+        private static void SaveCarToFile(Auto car, string filePath)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, true))
+                {
+                    
+                    writer.WriteLine($"{car.Name};{car.Type};{car.Transmission};{car.AmountOfFuel};{car.AmountOfTechLiquids};{car.EngineGeneration}");
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Error writing to file: {ex.Message}");
+            }
         }
 
         void TryStartEngine(Auto selectedCar, List<Auto> cars)
@@ -71,7 +191,7 @@ namespace samochod
                 switch (chooseAnotherCarOption)
                 {
                     case 1:
-                        Main(); // Restart the program to choose another car
+                        Main(); 
                         break;
 
                     case 2:
@@ -85,7 +205,28 @@ namespace samochod
             }
             else
             {
+                
+                SaveCarsToFile(cars, "auto_info.txt");
+
                 DriveCar(selectedCar, cars);
+            }
+        }
+
+        private static void SaveCarsToFile(List<Auto> cars, string filePath)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath, false))
+                {
+                    foreach (var car in cars)
+                    {
+                        writer.WriteLine($"{car.Name};{car.Type};{car.Transmission};{car.AmountOfFuel};{car.AmountOfTechLiquids};{car.EngineGeneration}");
+                    }
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine($"Error writing to file: {ex.Message}");
             }
         }
 
@@ -225,13 +366,14 @@ namespace samochod
                     {
                         string[] parts = line.Split(';');
 
-                        if (parts.Length == 5) // Updated for TransmissionType
+                        if (parts.Length == 6) 
                         {
                             string name = parts[0];
                             if (Enum.TryParse(parts[1], out AutoType type) && Enum.TryParse(parts[2], out TransmissionType transmission) &&
-                                decimal.TryParse(parts[3], out decimal fuel) && decimal.TryParse(parts[4], out decimal techLiquids))
+                                decimal.TryParse(parts[3], out decimal fuel) && decimal.TryParse(parts[4], out decimal techLiquids) &&
+                                Enum.TryParse(parts[5], out EngineGeneration engineGeneration))
                             {
-                                Auto car = new Auto(name, type, transmission, fuel, techLiquids);
+                                Auto car = new Auto(name, type, transmission, fuel, techLiquids, engineGeneration);
                                 cars.Add(car);
                             }
                         }
