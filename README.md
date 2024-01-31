@@ -32,6 +32,7 @@ Follow the on-screen instructions to interact with the Auto simulaying system. Y
 - **Auto.cs**: Definition of the `Auto` class.
 - **AutoType.cs**: custom class AutoType.
 - **TransmissionType.cs**: custom class TransmissionType.
+- **EngineGeneration.cs**: custom class EngineGeneration.
 - **Engine.cs**: Engine operations.
 - **LightControl.cs**: Tuggling light.
 - **SpeedControl.cs**: Speed contol operations.
